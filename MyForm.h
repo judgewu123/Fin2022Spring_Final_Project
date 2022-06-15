@@ -2,7 +2,14 @@
 #include "math.h"
 
 typedef struct Vasicek {
-	double r0, rbar, alpha, sig, DT, dz, r1;
+	double InitRate;
+	double LongRate;
+	double AdjSpeed;
+	double Volatility;
+	double DeltaTime;
+	double SpotRate;
+	double SpotVol;
+	double ZeroBondPrice;
 } Vasicek;
 
 namespace FinalProject {
@@ -248,7 +255,7 @@ namespace FinalProject {
 			// 
 			// MyForm
 			// 
-			this->AutoScaledoubleensions = System::Drawing::SizeF(6, 12);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1068, 629);
 			this->Controls->Add(this->label7);
@@ -282,16 +289,36 @@ namespace FinalProject {
 	}
 	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	}
-		   
+	}		   
 	 
 	private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
 		Vasicek VS;
-		source.r0 = textBox1->Text;
+		double I;
+		double r0;
+		double rbar;
+		double alpha;
+		double sig;
+		double DT;
+		double r1;
+		double SRate;
+
+		r0 = System::Convert::ToDouble(textBox1->Text);
+		rbar = System::Convert::ToDouble(textBox2->Text);
+		alpha = System::Convert::ToDouble(textBox3->Text);
+		sig = System::Convert::ToDouble(textBox4->Text);
+		DT = System::Convert::ToDouble(textBox5->Text);
+
+		Vasicek_InitObj(VS, r0, rbar, alpha, sig, DT);
+		Vasicek_GetBondParameters(VS, 0, 1);
 	}
 
-	private: int test(int a, int b) {
-		return a + b;
+	private: void Vasicek_InitObj(Vasicek& VS, double r0, double rbar, double alpha, double sig, double DT) {
+		VS.InitRate = r0;
+		VS.LongRate = rbar;
+		VS.AdjSpeed = alpha;
+		VS.Volatility = sig;
+		VS.DeltaTime = DT;
+		//Randomize;
 	}
 
 	private: void Vasicek_GetBondParameters(Vasicek VS, double t, double s) {
@@ -310,21 +337,20 @@ namespace FinalProject {
 		rbar = VS.LongRate;
 		alpha = VS.AdjSpeed;
 		sig = VS.Volatility;
-		DT = s ‐ t;
-		R_inf = rbar - 0.5 * (sig / alpha) ^ 2;
-		A = Exp((R_inf / alpha) * (1‐Exp(‐alpha * DT)) ‐ DT * R_inf ‐(sig * sig / (4 * alpha ^ 3)) * (1‐Exp(‐alpha * DT)) ^ 2);
-		B = (1 ‐ Exp(‐alpha * DT)) / alpha;
-		SRate = ‐Log(A) / DT + B / DT * r0;
-		SVol = (sig / (alpha * DT)) * (1 ‐ Exp(‐alpha * DT));
+		DT = s - t;
+
+		R_inf = rbar - 0.5 * powf((sig / alpha), 2);
+		A = exp((R_inf / alpha) * (1 - exp(-alpha * DT)) - DT * R_inf - (sig * sig / (4 * powf(alpha, 3))) * powf((1 - exp(-alpha * DT)), 2));
+		B = (1 - exp(-alpha * DT)) / alpha;
+
+		SRate = -log(A) / DT + B / DT * r0;
+		SVol = (sig / (alpha * DT)) * (1 - exp(-alpha * DT));
 		VS.SpotRate = SRate;
 		VS.SpotVol = SVol;
-		VS.ZeroBondPrice = A * Exp(‐r0 * B);
+		VS.ZeroBondPrice = A * exp(-r0 * B);
 	}
 
-	private: void Vasicek_InitObj(Vasicek &source) {
-			source.r0 = 
-			source.
-		}
+	
 	
 	
 	};
