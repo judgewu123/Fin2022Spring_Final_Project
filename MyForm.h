@@ -1,7 +1,17 @@
 #pragma once
+#include "math.h"
+
 typedef struct Vasicek {
-	double r0, rbar, alpha, sig, DT, dz, r1;
+	double InitRate;
+	double LongRate;
+	double AdjSpeed;
+	double Volatility;
+	double DeltaTime;
+	double SpotRate;
+	double SpotVol;
+	double ZeroBondPrice;
 } Vasicek;
+
 namespace FinalProject {
 
 	using namespace System;
@@ -12,7 +22,7 @@ namespace FinalProject {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// MyForm ªººK­n
+	/// MyForm çš„æ‘˜è¦
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -21,14 +31,14 @@ namespace FinalProject {
 		{
 			InitializeComponent();
 			//
-			//TODO:  ¦b¦¹¥[¤J«Øºc¨ç¦¡µ{¦¡½X
+			//TODO:  åœ¨æ­¤åŠ å…¥å»ºæ§‹å‡½å¼ç¨‹å¼ç¢¼
 			//
 		}
 
 
 	protected:
 		/// <summary>
-		/// ²M°£¥ô¦ó¨Ï¥Î¤¤ªº¸ê·½¡C
+		/// æ¸…é™¤ä»»ä½•ä½¿ç”¨ä¸­çš„è³‡æºã€‚
 		/// </summary>
 		~MyForm()
 		{
@@ -57,14 +67,14 @@ namespace FinalProject {
 
 	private:
 		/// <summary>
-		/// ³]­p¤u¨ã©Ò»İªºÅÜ¼Æ¡C
+		/// è¨­è¨ˆå·¥å…·æ‰€éœ€çš„è®Šæ•¸ã€‚
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// ¦¹¬°³]­p¤u¨ã¤ä´©©Ò»İªº¤èªk - ½Ğ¤Å¨Ï¥Îµ{¦¡½X½s¿è¾¹­×§ï
-		/// ³o­Ó¤èªkªº¤º®e¡C
+		/// æ­¤ç‚ºè¨­è¨ˆå·¥å…·æ”¯æ´æ‰€éœ€çš„æ–¹æ³• - è«‹å‹¿ä½¿ç”¨ç¨‹å¼ç¢¼ç·¨è¼¯å™¨ä¿®æ”¹
+		/// é€™å€‹æ–¹æ³•çš„å…§å®¹ã€‚
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -87,7 +97,7 @@ namespace FinalProject {
 			// 
 			// textBox1
 			// 
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"·L³n¥¿¶ÂÅé", 24.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"å¾®è»Ÿæ­£é»‘é«”", 24.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->textBox1->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->textBox1->Location = System::Drawing::Point(122, 64);
@@ -98,7 +108,7 @@ namespace FinalProject {
 			// 
 			// textBox2
 			// 
-			this->textBox2->Font = (gcnew System::Drawing::Font(L"·L³n¥¿¶ÂÅé", 24.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->textBox2->Font = (gcnew System::Drawing::Font(L"å¾®è»Ÿæ­£é»‘é«”", 24.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->textBox2->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->textBox2->Location = System::Drawing::Point(122, 115);
@@ -146,7 +156,7 @@ namespace FinalProject {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"·s²Ó©úÅé", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label1->Font = (gcnew System::Drawing::Font(L"æ–°ç´°æ˜é«”", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->label1->Location = System::Drawing::Point(4, 80);
 			this->label1->Name = L"label1";
@@ -158,7 +168,7 @@ namespace FinalProject {
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Font = (gcnew System::Drawing::Font(L"·s²Ó©úÅé", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label3->Font = (gcnew System::Drawing::Font(L"æ–°ç´°æ˜é«”", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->label3->Location = System::Drawing::Point(4, 127);
 			this->label3->Name = L"label3";
@@ -169,7 +179,7 @@ namespace FinalProject {
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Font = (gcnew System::Drawing::Font(L"·s²Ó©úÅé", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label4->Font = (gcnew System::Drawing::Font(L"æ–°ç´°æ˜é«”", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->label4->Location = System::Drawing::Point(4, 181);
 			this->label4->Name = L"label4";
@@ -180,7 +190,7 @@ namespace FinalProject {
 			// label5
 			// 
 			this->label5->AutoSize = true;
-			this->label5->Font = (gcnew System::Drawing::Font(L"·s²Ó©úÅé", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label5->Font = (gcnew System::Drawing::Font(L"æ–°ç´°æ˜é«”", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->label5->Location = System::Drawing::Point(4, 229);
 			this->label5->Name = L"label5";
@@ -191,7 +201,7 @@ namespace FinalProject {
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Font = (gcnew System::Drawing::Font(L"·s²Ó©úÅé", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label2->Font = (gcnew System::Drawing::Font(L"æ–°ç´°æ˜é«”", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->label2->Location = System::Drawing::Point(4, 283);
 			this->label2->Name = L"label2";
@@ -202,7 +212,7 @@ namespace FinalProject {
 			// label6
 			// 
 			this->label6->AutoSize = true;
-			this->label6->Font = (gcnew System::Drawing::Font(L"·s²Ó©úÅé", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label6->Font = (gcnew System::Drawing::Font(L"æ–°ç´°æ˜é«”", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->label6->Location = System::Drawing::Point(4, 333);
 			this->label6->Name = L"label6";
@@ -212,21 +222,21 @@ namespace FinalProject {
 			// 
 			// button1
 			// 
-			this->button1->Font = (gcnew System::Drawing::Font(L"·L³n¥¿¶ÂÅé", 24.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->button1->Font = (gcnew System::Drawing::Font(L"å¾®è»Ÿæ­£é»‘é«”", 24.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->button1->Location = System::Drawing::Point(314, 166);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(164, 96);
 			this->button1->TabIndex = 13;
-			this->button1->Text = L"­pºâ\r\n";
+			this->button1->Text = L"è¨ˆç®—\r\n";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click_1);
 			// 
 			// textBox7
 			// 
-			this->textBox7->Font = (gcnew System::Drawing::Font(L"·L³n¥¿¶ÂÅé", 35.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->textBox7->Font = (gcnew System::Drawing::Font(L"å¾®è»Ÿæ­£é»‘é«”", 35.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
-			this->textBox7->Location = System::Drawing::Point(534, 166);
+			this->textBox7->Location = System::Drawing::Point(885, 176);
 			this->textBox7->Multiline = true;
 			this->textBox7->Name = L"textBox7";
 			this->textBox7->Size = System::Drawing::Size(142, 96);
@@ -235,19 +245,19 @@ namespace FinalProject {
 			// label7
 			// 
 			this->label7->AutoSize = true;
-			this->label7->Font = (gcnew System::Drawing::Font(L"·L³n¥¿¶ÂÅé", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label7->Font = (gcnew System::Drawing::Font(L"å¾®è»Ÿæ­£é»‘é«”", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
-			this->label7->Location = System::Drawing::Point(576, 125);
+			this->label7->Location = System::Drawing::Point(916, 135);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(69, 35);
 			this->label7->TabIndex = 15;
-			this->label7->Text = L"µ²ªG";
+			this->label7->Text = L"çµæœ";
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(688, 468);
+			this->ClientSize = System::Drawing::Size(1068, 629);
 			this->Controls->Add(this->label7);
 			this->Controls->Add(this->textBox7);
 			this->Controls->Add(this->button1);
@@ -263,7 +273,7 @@ namespace FinalProject {
 			this->Controls->Add(this->textBox3);
 			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->textBox1);
-			this->Font = (gcnew System::Drawing::Font(L"·s²Ó©úÅé", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->Font = (gcnew System::Drawing::Font(L"æ–°ç´°æ˜é«”", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->Name = L"MyForm";
 			this->Text = L"Calculator";
@@ -279,18 +289,68 @@ namespace FinalProject {
 	}
 	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	}
-		   
+	}		   
 	 
 	private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
 		Vasicek VS;
-		source.r0 = textBox1->Text;
+		double I;
+		double r0;
+		double rbar;
+		double alpha;
+		double sig;
+		double DT;
+		double r1;
+		double SRate;
+
+		r0 = System::Convert::ToDouble(textBox1->Text);
+		rbar = System::Convert::ToDouble(textBox2->Text);
+		alpha = System::Convert::ToDouble(textBox3->Text);
+		sig = System::Convert::ToDouble(textBox4->Text);
+		DT = System::Convert::ToDouble(textBox5->Text);
+
+		Vasicek_InitObj(VS, r0, rbar, alpha, sig, DT);
+		Vasicek_GetBondParameters(VS, 0, 1);
 	}
 
-	private: void Vasicek_InitObj(Vasicek &source) {
-			source.r0 = 
-			source.
-		}
+	private: void Vasicek_InitObj(Vasicek& VS, double r0, double rbar, double alpha, double sig, double DT) {
+		VS.InitRate = r0;
+		VS.LongRate = rbar;
+		VS.AdjSpeed = alpha;
+		VS.Volatility = sig;
+		VS.DeltaTime = DT;
+		//Randomize;
+	}
+
+	private: void Vasicek_GetBondParameters(Vasicek VS, double t, double s) {
+		double r0;
+		double rbar;
+		double alpha;
+		double sig;
+		double DT;
+		double A;
+		double B;
+		double R_inf;
+		double SRate;
+		double SVol;
+
+		r0 = VS.InitRate;
+		rbar = VS.LongRate;
+		alpha = VS.AdjSpeed;
+		sig = VS.Volatility;
+		DT = s - t;
+
+		R_inf = rbar - 0.5 * powf((sig / alpha), 2);
+		A = exp((R_inf / alpha) * (1 - exp(-alpha * DT)) - DT * R_inf - (sig * sig / (4 * powf(alpha, 3))) * powf((1 - exp(-alpha * DT)), 2));
+		B = (1 - exp(-alpha * DT)) / alpha;
+
+		SRate = -log(A) / DT + B / DT * r0;
+		SVol = (sig / (alpha * DT)) * (1 - exp(-alpha * DT));
+		VS.SpotRate = SRate;
+		VS.SpotVol = SVol;
+		VS.ZeroBondPrice = A * exp(-r0 * B);
+	}
+
+	
 	
 	
 	};
