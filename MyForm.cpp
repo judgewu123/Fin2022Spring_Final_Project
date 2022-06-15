@@ -3,7 +3,7 @@
 
 using namespace System;
 using namespace System::Windows::Forms;
-[STAThread]
+[STAThreadAttribute]
 
 void main(array<String^>^ args) {
 	Application::EnableVisualStyles();
@@ -11,5 +11,3 @@ void main(array<String^>^ args) {
 	FinalProject::MyForm form;
 	Application::Run(% form);
 }
-
-
