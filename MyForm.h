@@ -1,5 +1,7 @@
 #pragma once
-
+typedef struct Vasicek {
+	double r0, rbar, alpha, sig, DT, dz, r1;
+} Vasicek;
 namespace FinalProject {
 
 	using namespace System;
@@ -22,6 +24,7 @@ namespace FinalProject {
 			//TODO:  在此加入建構函式程式碼
 			//
 		}
+
 
 	protected:
 		/// <summary>
@@ -269,21 +272,26 @@ namespace FinalProject {
 			this->PerformLayout();
 
 		}
+
 #pragma endregion
+
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	}
-	
+		   
+	 
 	private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
-		int output = test(System::Convert::ToInt16(textBox1->Text), System::Convert::ToInt16(textBox2->Text));
-
-		textBox7->Text = System::Convert::ToString(output);
+		Vasicek VS;
+		source.r0 = textBox1->Text;
 	}
 
-	private: int test(int a, int b) {
-		return a + b;
-	}
-};
+	private: void Vasicek_InitObj(Vasicek &source) {
+			source.r0 = 
+			source.
+		}
+	
+	
+	};
 }
