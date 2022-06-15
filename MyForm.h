@@ -50,7 +50,7 @@ namespace FinalProject {
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::TextBox^ textBox7;
 	private: System::Windows::Forms::Label^ label7;
-	private: System::Windows::Forms::Label^ label8;
+
 
 	private:
 		/// <summary>
@@ -80,7 +80,6 @@ namespace FinalProject {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
 			this->label7 = (gcnew System::Windows::Forms::Label());
-			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// textBox1
@@ -241,22 +240,11 @@ namespace FinalProject {
 			this->label7->TabIndex = 15;
 			this->label7->Text = L"結果";
 			// 
-			// label8
-			// 
-			this->label8->AutoSize = true;
-			this->label8->Font = (gcnew System::Drawing::Font(L"新細明體", 25));
-			this->label8->Location = System::Drawing::Point(532, 287);
-			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(96, 34);
-			this->label8->TabIndex = 16;
-			this->label8->Text = L"Result";
-			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(688, 468);
-			this->Controls->Add(this->label8);
 			this->Controls->Add(this->label7);
 			this->Controls->Add(this->textBox7);
 			this->Controls->Add(this->button1);
@@ -289,9 +277,13 @@ namespace FinalProject {
 	}
 	
 	private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
-		int output = System::Convert::ToInt16(textBox1->Text) + System::Convert::ToInt16(textBox2->Text);
+		int output = test(System::Convert::ToInt16(textBox1->Text), System::Convert::ToInt16(textBox2->Text));
 
 		textBox7->Text = System::Convert::ToString(output);
+	}
+
+	private: int test(int a, int b) {
+		return a + b;
 	}
 };
 }
