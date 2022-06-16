@@ -68,6 +68,7 @@ namespace FinalProject {
 
 
 	private: System::Windows::Forms::Label^ label6;
+	private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart1;
 
 
 	private:
@@ -83,6 +84,10 @@ namespace FinalProject {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
@@ -96,13 +101,15 @@ namespace FinalProject {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// textBox1
 			// 
 			this->textBox1->AcceptsReturn = true;
 			this->textBox1->AcceptsTab = true;
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->textBox1->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->textBox1->Location = System::Drawing::Point(175, 126);
@@ -116,7 +123,7 @@ namespace FinalProject {
 			// 
 			this->textBox2->AcceptsReturn = true;
 			this->textBox2->AcceptsTab = true;
-			this->textBox2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->textBox2->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->textBox2->Location = System::Drawing::Point(175, 194);
@@ -130,7 +137,7 @@ namespace FinalProject {
 			// 
 			this->textBox3->AcceptsReturn = true;
 			this->textBox3->AcceptsTab = true;
-			this->textBox3->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->textBox3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->textBox3->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->textBox3->Location = System::Drawing::Point(175, 265);
@@ -144,7 +151,7 @@ namespace FinalProject {
 			// 
 			this->textBox4->AcceptsReturn = true;
 			this->textBox4->AcceptsTab = true;
-			this->textBox4->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->textBox4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->textBox4->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->textBox4->Location = System::Drawing::Point(175, 336);
@@ -158,7 +165,7 @@ namespace FinalProject {
 			// 
 			this->textBox5->AcceptsReturn = true;
 			this->textBox5->AcceptsTab = true;
-			this->textBox5->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->textBox5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->textBox5->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->textBox5->Location = System::Drawing::Point(175, 407);
@@ -171,61 +178,60 @@ namespace FinalProject {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label1->Location = System::Drawing::Point(105, 126);
 			this->label1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(50, 37);
+			this->label1->Size = System::Drawing::Size(46, 37);
 			this->label1->TabIndex = 6;
 			this->label1->Text = L"r0";
-			this->label1->Click += gcnew System::EventHandler(this, &MyForm::label1_Click);
 			// 
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label3->Location = System::Drawing::Point(52, 265);
 			this->label3->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(103, 37);
+			this->label3->Size = System::Drawing::Size(96, 37);
 			this->label3->TabIndex = 8;
 			this->label3->Text = L"alpha";
 			// 
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label4->Location = System::Drawing::Point(89, 336);
 			this->label4->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(63, 37);
+			this->label4->Size = System::Drawing::Size(58, 37);
 			this->label4->TabIndex = 9;
 			this->label4->Text = L"sig";
 			// 
 			// label5
 			// 
 			this->label5->AutoSize = true;
-			this->label5->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label5->Location = System::Drawing::Point(93, 407);
 			this->label5->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(61, 37);
+			this->label5->Size = System::Drawing::Size(60, 37);
 			this->label5->TabIndex = 10;
 			this->label5->Text = L"DT";
 			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label2->Location = System::Drawing::Point(73, 194);
 			this->label2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(84, 37);
+			this->label2->Size = System::Drawing::Size(75, 37);
 			this->label2->TabIndex = 11;
 			this->label2->Text = L"rbar";
 			// 
@@ -234,7 +240,7 @@ namespace FinalProject {
 			this->button1->BackColor = System::Drawing::Color::RosyBrown;
 			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 			this->button1->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->button1->Font = (gcnew System::Drawing::Font(L"Baskerville Old Face", 24, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->button1->ForeColor = System::Drawing::Color::LightGray;
 			this->button1->Location = System::Drawing::Point(59, 498);
@@ -249,13 +255,35 @@ namespace FinalProject {
 			// label6
 			// 
 			this->label6->AutoSize = true;
-			this->label6->Font = (gcnew System::Drawing::Font(L"Broadway", 27.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 27.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label6->Location = System::Drawing::Point(35, 40);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(395, 42);
+			this->label6->Size = System::Drawing::Size(341, 42);
 			this->label6->TabIndex = 16;
 			this->label6->Text = L"Please Enter Data :";
+			// 
+			// chart1
+			// 
+			chartArea1->Name = L"ChartArea1";
+			this->chart1->ChartAreas->Add(chartArea1);
+			legend1->Name = L"Legend1";
+			this->chart1->Legends->Add(legend1);
+			this->chart1->Location = System::Drawing::Point(417, 40);
+			this->chart1->Name = L"chart1";
+			series1->ChartArea = L"ChartArea1";
+			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series1->Legend = L"Legend1";
+			series1->Name = L"Approximate";
+			series2->ChartArea = L"ChartArea1";
+			series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series2->Legend = L"Legend1";
+			series2->Name = L"Accurate";
+			this->chart1->Series->Add(series1);
+			this->chart1->Series->Add(series2);
+			this->chart1->Size = System::Drawing::Size(653, 446);
+			this->chart1->TabIndex = 17;
+			this->chart1->Text = L"chart1";
 			// 
 			// MyForm
 			// 
@@ -263,6 +291,7 @@ namespace FinalProject {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Control;
 			this->ClientSize = System::Drawing::Size(1091, 707);
+			this->Controls->Add(this->chart1);
 			this->Controls->Add(this->label6);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label2);
@@ -281,19 +310,13 @@ namespace FinalProject {
 			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Name = L"MyForm";
 			this->Text = L"Vasicek Process";
-			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 
 #pragma endregion
-
-	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
-	}
-	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
-
-	}		   
 	 
 	private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
 		Vasicek VS;
@@ -314,6 +337,20 @@ namespace FinalProject {
 
 		Vasicek_InitObj(VS, r0, rbar, alpha, sig, DT);
 		Vasicek_GetBondParameters(VS, 0, 1);
+		for (int i = 1; i < 26; i++) {
+			r1 = Vasicek_GetNextRateByApprox(VS);
+			chart1->Series["Approximate"]->Points->AddXY(i, r1);
+			VS.InitRate = r1;
+		}
+
+		Vasicek_InitObj(VS, r0, rbar, alpha, sig, DT);
+		for (int i = 1; i < 26; i++) {
+			r1 = Vasicek_GetNextRate(VS);
+			chart1->Series["Accurate"]->Points->AddXY(i, r1);
+			VS.InitRate = r1;
+		}
+
+
 	}
 
 	private: void Vasicek_InitObj(Vasicek& VS, double r0, double rbar, double alpha, double sig, double DT) {
@@ -322,7 +359,7 @@ namespace FinalProject {
 		VS.AdjSpeed = alpha;
 		VS.Volatility = sig;
 		VS.DeltaTime = DT;
-		//Randomize;
+		srand(time(NULL));
 	}
 
 	private: void Vasicek_GetBondParameters(Vasicek VS, double t, double s) {
@@ -373,6 +410,21 @@ namespace FinalProject {
 		return r1;
 	}
 	
+  private: double	Vasicek_GetNextRate(Vasicek &VS) {
+			
+		double r0, rbar, alpha, sig, DT, dZ, mean, std, r1; 
+		r0 = VS.InitRate;
+		rbar = VS.LongRate;
+		alpha = VS.AdjSpeed;
+		sig = VS.Volatility;
+		DT = VS.DeltaTime;
+		dZ = normsinv(rand());
+		mean = rbar + ((r0 - rbar) * exp(alpha * DT * -1));
+		std = sqrt(((sig * sig) / (2 * alpha)) * (1 - exp(-2 * alpha * DT)));
+		r1 = mean + std * dZ;
+		return r1;
+	}
+  
 	double normsinv(const double p)
 	{
 		static const double LOW = 0.02425;
