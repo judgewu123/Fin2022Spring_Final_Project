@@ -73,6 +73,7 @@ namespace FinalProject {
 	private: System::Windows::Forms::Label^ label7;
 	private: System::Windows::Forms::Label^ label8;
 	private: System::Windows::Forms::Label^ label9;
+	private: System::Windows::Forms::PictureBox^ pictureBox1;
 
 
 
@@ -112,7 +113,9 @@ namespace FinalProject {
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->label9 = (gcnew System::Windows::Forms::Label());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// textBox1
@@ -122,7 +125,7 @@ namespace FinalProject {
 			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->textBox1->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
-			this->textBox1->Location = System::Drawing::Point(175, 126);
+			this->textBox1->Location = System::Drawing::Point(171, 130);
 			this->textBox1->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
@@ -138,7 +141,7 @@ namespace FinalProject {
 			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->textBox2->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
-			this->textBox2->Location = System::Drawing::Point(175, 194);
+			this->textBox2->Location = System::Drawing::Point(171, 198);
 			this->textBox2->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->textBox2->Multiline = true;
 			this->textBox2->Name = L"textBox2";
@@ -154,7 +157,7 @@ namespace FinalProject {
 			this->textBox3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->textBox3->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
-			this->textBox3->Location = System::Drawing::Point(175, 265);
+			this->textBox3->Location = System::Drawing::Point(171, 269);
 			this->textBox3->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->textBox3->Multiline = true;
 			this->textBox3->Name = L"textBox3";
@@ -170,7 +173,7 @@ namespace FinalProject {
 			this->textBox4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->textBox4->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
-			this->textBox4->Location = System::Drawing::Point(175, 336);
+			this->textBox4->Location = System::Drawing::Point(171, 340);
 			this->textBox4->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->textBox4->Multiline = true;
 			this->textBox4->Name = L"textBox4";
@@ -186,7 +189,7 @@ namespace FinalProject {
 			this->textBox5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->textBox5->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
-			this->textBox5->Location = System::Drawing::Point(175, 407);
+			this->textBox5->Location = System::Drawing::Point(171, 411);
 			this->textBox5->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->textBox5->Multiline = true;
 			this->textBox5->Name = L"textBox5";
@@ -200,7 +203,7 @@ namespace FinalProject {
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(105, 126);
+			this->label1->Location = System::Drawing::Point(101, 130);
 			this->label1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(50, 37);
@@ -212,7 +215,7 @@ namespace FinalProject {
 			this->label3->AutoSize = true;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label3->Location = System::Drawing::Point(52, 265);
+			this->label3->Location = System::Drawing::Point(48, 269);
 			this->label3->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(103, 37);
@@ -224,7 +227,7 @@ namespace FinalProject {
 			this->label4->AutoSize = true;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label4->Location = System::Drawing::Point(89, 336);
+			this->label4->Location = System::Drawing::Point(85, 340);
 			this->label4->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(63, 37);
@@ -236,7 +239,7 @@ namespace FinalProject {
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label5->Location = System::Drawing::Point(93, 407);
+			this->label5->Location = System::Drawing::Point(89, 411);
 			this->label5->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(61, 37);
@@ -248,7 +251,7 @@ namespace FinalProject {
 			this->label2->AutoSize = true;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(73, 194);
+			this->label2->Location = System::Drawing::Point(69, 198);
 			this->label2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(84, 37);
@@ -263,7 +266,7 @@ namespace FinalProject {
 			this->button1->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 24, System::Drawing::FontStyle::Italic, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->button1->ForeColor = System::Drawing::Color::LightGray;
-			this->button1->Location = System::Drawing::Point(59, 498);
+			this->button1->Location = System::Drawing::Point(55, 502);
 			this->button1->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(338, 59);
@@ -277,7 +280,7 @@ namespace FinalProject {
 			this->label6->AutoSize = true;
 			this->label6->Font = (gcnew System::Drawing::Font(L"Broadway", 27.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label6->Location = System::Drawing::Point(35, 40);
+			this->label6->Location = System::Drawing::Point(31, 44);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(395, 42);
 			this->label6->TabIndex = 16;
@@ -295,7 +298,7 @@ namespace FinalProject {
 			this->chart1->ChartAreas->Add(chartArea1);
 			legend1->Name = L"Legend1";
 			this->chart1->Legends->Add(legend1);
-			this->chart1->Location = System::Drawing::Point(452, 50);
+			this->chart1->Location = System::Drawing::Point(449, 44);
 			this->chart1->Name = L"chart1";
 			series1->BorderWidth = 3;
 			series1->ChartArea = L"ChartArea1";
@@ -317,7 +320,7 @@ namespace FinalProject {
 			series2->Name = L"Accurate";
 			this->chart1->Series->Add(series1);
 			this->chart1->Series->Add(series2);
-			this->chart1->Size = System::Drawing::Size(871, 528);
+			this->chart1->Size = System::Drawing::Size(945, 637);
 			this->chart1->TabIndex = 17;
 			this->chart1->Text = L"chart1";
 			// 
@@ -326,7 +329,7 @@ namespace FinalProject {
 			this->label7->AutoSize = true;
 			this->label7->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label7->Location = System::Drawing::Point(353, 126);
+			this->label7->Location = System::Drawing::Point(349, 130);
 			this->label7->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(44, 37);
@@ -338,7 +341,7 @@ namespace FinalProject {
 			this->label8->AutoSize = true;
 			this->label8->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label8->Location = System::Drawing::Point(353, 194);
+			this->label8->Location = System::Drawing::Point(349, 198);
 			this->label8->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(44, 37);
@@ -350,19 +353,31 @@ namespace FinalProject {
 			this->label9->AutoSize = true;
 			this->label9->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label9->Location = System::Drawing::Point(353, 336);
+			this->label9->Location = System::Drawing::Point(349, 340);
 			this->label9->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label9->Name = L"label9";
 			this->label9->Size = System::Drawing::Size(44, 37);
 			this->label9->TabIndex = 20;
 			this->label9->Text = L"%";
 			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			this->pictureBox1->Location = System::Drawing::Point(55, 588);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(338, 93);
+			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->pictureBox1->TabIndex = 21;
+			this->pictureBox1->TabStop = false;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Control;
-			this->ClientSize = System::Drawing::Size(1355, 623);
+			this->ClientSize = System::Drawing::Size(1442, 728);
+			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->label9);
 			this->Controls->Add(this->label8);
 			this->Controls->Add(this->label7);
@@ -386,6 +401,7 @@ namespace FinalProject {
 			this->Name = L"MyForm";
 			this->Text = L"Vasicek Process";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
