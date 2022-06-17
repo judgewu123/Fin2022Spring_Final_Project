@@ -336,7 +336,7 @@ namespace FinalProject {
 	private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
 		chart1->Series["Approximate"]->Points->Clear();
 		chart1->Series["Accurate"]->Points->Clear();
-		chart1->ChartAreas[0]->AxisY->Minimum = 4;
+		chart1->ChartAreas[0]->AxisY->IsStartedFromZero = false;
 		Vasicek VS;
 		double I;
 		double r0;
