@@ -4,6 +4,8 @@
 #include "time.h"
 #include <cmath>
 #include "errno.h"
+#include <random>
+#include <iostream>
 
 typedef struct Vasicek {
 	double InitRate;
@@ -121,6 +123,7 @@ namespace FinalProject {
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(222, 37);
 			this->textBox1->TabIndex = 0;
+			this->textBox1->Text = L"0.05";
 			// 
 			// textBox2
 			// 
@@ -135,6 +138,7 @@ namespace FinalProject {
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(222, 37);
 			this->textBox2->TabIndex = 1;
+			this->textBox2->Text = L"0.05";
 			// 
 			// textBox3
 			// 
@@ -149,6 +153,7 @@ namespace FinalProject {
 			this->textBox3->Name = L"textBox3";
 			this->textBox3->Size = System::Drawing::Size(222, 37);
 			this->textBox3->TabIndex = 2;
+			this->textBox3->Text = L"0.15";
 			// 
 			// textBox4
 			// 
@@ -163,6 +168,7 @@ namespace FinalProject {
 			this->textBox4->Name = L"textBox4";
 			this->textBox4->Size = System::Drawing::Size(222, 37);
 			this->textBox4->TabIndex = 3;
+			this->textBox4->Text = L"0.01";
 			// 
 			// textBox5
 			// 
@@ -177,6 +183,7 @@ namespace FinalProject {
 			this->textBox5->Name = L"textBox5";
 			this->textBox5->Size = System::Drawing::Size(222, 37);
 			this->textBox5->TabIndex = 4;
+			this->textBox5->Text = L"0.004";
 			// 
 			// label1
 			// 
@@ -278,11 +285,13 @@ namespace FinalProject {
 			this->chart1->Name = L"chart1";
 			series1->ChartArea = L"ChartArea1";
 			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series1->IsValueShownAsLabel = true;
 			series1->Legend = L"Legend1";
 			series1->Name = L"Approximate";
 			series1->YValueType = System::Windows::Forms::DataVisualization::Charting::ChartValueType::Double;
 			series2->ChartArea = L"ChartArea1";
 			series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series2->IsValueShownAsLabel = true;
 			series2->Legend = L"Legend1";
 			series2->Name = L"Accurate";
 			this->chart1->Series->Add(series1);
@@ -327,10 +336,7 @@ namespace FinalProject {
 	private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
 		chart1->Series["Approximate"]->Points->Clear();
 		chart1->Series["Accurate"]->Points->Clear();
-		chart1->ChartAreas[0]->AxisY->Minimum = 0.044;
-		chart1->ChartAreas[0]->AxisY->Maximum = 0.056;
-		chart1->ChartAreas[0]->AxisX->Maximum = 25;
-		chart1->ChartAreas[0]->AxisX->Minimum = 0;
+		chart1->ChartAreas[0]->AxisY->Minimum = 4;
 		Vasicek VS;
 		double I;
 		double r0;
@@ -347,31 +353,30 @@ namespace FinalProject {
 		sig = System::Convert::ToDouble(textBox4->Text);
 		DT = System::Convert::ToDouble(textBox5->Text);
 
-		Vasicek_InitObj(VS, r0, rbar, alpha, sig, DT);
+		Vasicek_InitObj(VS, r0, rbar, alpha, sig, DT ,4);
 		Vasicek_GetBondParameters(VS, 0, 1);
 		for (int i = 1; i < 26; i++) {
 			r1 = Vasicek_GetNextRateByApprox(VS);
-			chart1->Series["Approximate"]->Points->AddXY(System::Convert::ToString(i), r1);
+			chart1->Series[0]->Points->AddXY(System::Convert::ToString(i), round(r1 * 10000) / 100);
 			VS.InitRate = r1;
 		}
 
-		Vasicek_InitObj(VS, r0, rbar, alpha, sig, DT);
+		Vasicek_InitObj(VS, r0, rbar, alpha, sig, DT, 5);
 		for (int i = 1; i < 26; i++) {
 			r1 = Vasicek_GetNextRate(VS);
-			chart1->Series["Accurate"]->Points->AddXY(System::Convert::ToString(i),r1);
+			chart1->Series[1]->Points->AddXY(System::Convert::ToString(i), round(r1*10000)/100);
 			VS.InitRate = r1;
 		}
 
 
 	}
-
-	private: void Vasicek_InitObj(Vasicek& VS, double r0, double rbar, double alpha, double sig, double DT) {
+	private: void Vasicek_InitObj(Vasicek& VS, double r0, double rbar, double alpha, double sig, double DT, int seed) {
 		VS.InitRate = r0;
 		VS.LongRate = rbar;
 		VS.AdjSpeed = alpha;
 		VS.Volatility = sig;
 		VS.DeltaTime = DT;
-		srand((unsigned int)time(NULL));
+		srand(((unsigned)time(NULL)+seed));
 	}
 
 	private: void Vasicek_GetBondParameters(Vasicek VS, double t, double s) {
@@ -393,11 +398,11 @@ namespace FinalProject {
 		DT = s - t;
 
 		R_inf = rbar - 0.5 * powl((sig / alpha), 2);
-		A = exp((R_inf / alpha) * (1 - exp(-alpha * DT)) - DT * R_inf - (sig * sig / (4 * powl(alpha, 3))) * powl((1 - exp(-alpha * DT)), 2));
-		B = (1 - exp(-alpha * DT)) / alpha;
+		A = expl((R_inf / alpha) * (1 - expl(-alpha * DT)) - (DT * R_inf) - (sig * sig / (4 * powl(alpha, 3))) * powl((1 - expl(-alpha * DT)), 2));
+		B = (1 - expl(-alpha * DT)) / alpha;
 
 		SRate = -log(A) / DT + B / DT * r0;
-		SVol = (sig / (alpha * DT)) * (1 - exp(-alpha * DT));
+		SVol = (sig / (alpha * DT)) * (1 - expl(-alpha * DT));
 		VS.SpotRate = SRate;
 		VS.SpotVol = SVol;
 		VS.ZeroBondPrice = A * exp(-r0 * B);
@@ -417,124 +422,110 @@ namespace FinalProject {
 		alpha = VS.AdjSpeed;
 		sig = VS.Volatility;
 		DT = VS.DeltaTime;
-		dZ = sqrt(DT) * normsinv(rand() / double(RAND_MAX));
+		dZ = sqrt(DT) * normsinv((double)rand() / (double)RAND_MAX);
 		r1 = r0 + alpha * (rbar - r0) * DT + sig * dZ;
 		return r1;
 	}
-	
-	private: double	Vasicek_GetNextRate(Vasicek &VS) {
-		double r0, rbar, alpha, sig, DT, dZ, mean, std, r1; 
+
+	private: double	Vasicek_GetNextRate(Vasicek VS) {
+		double r0, rbar, alpha, sig, DT, dZ, mean, std, r1;
 		r0 = VS.InitRate;
 		rbar = VS.LongRate;
 		alpha = VS.AdjSpeed;
 		sig = VS.Volatility;
 		DT = VS.DeltaTime;
-		dZ = normsinv(rand() / double(RAND_MAX));
-		mean = rbar + ((r0 - rbar) * exp(alpha * DT * -1));
-		std = sqrt(((sig * sig) / (2 * alpha)) * (1 - exp(-2 * alpha * DT)));
+		dZ = normsinv((double)rand() / (double)RAND_MAX);
+		mean = rbar + ((r0 - rbar) * expl(-alpha * DT));
+		std = sqrt(((sig * sig) / (2 * alpha)) * (1 - expl(-2 * alpha * DT)));
 		r1 = mean + std * dZ;
 		return r1;
 	}
-  
-		   double normsinv(const double p)
-		   {
-			   static const double LOW = 0.02425;
-			   static const double HIGH = 0.97575;
 
-			   /* Coefficients in rational approximations. */
-			   static const double a[] =
-			   {
-				   -3.969683028665376e+01,
-					   2.209460984245205e+02,
-					   -2.759285104469687e+02,
-					   1.383577518672690e+02,
-					   -3.066479806614716e+01,
-					   2.506628277459239e+00
-			   };
+	private: double normsinv(const double p)
+	{
+		static const double LOW = 0.02425;
+		static const double HIGH = 0.97575;
 
-			   static const double b[] =
-			   {
-				   -5.447609879822406e+01,
-					   1.615858368580409e+02,
-					   -1.556989798598866e+02,
-					   6.680131188771972e+01,
-					   -1.328068155288572e+01
-			   };
-
-			   static const double c[] =
-			   {
-				   -7.784894002430293e-03,
-					   -3.223964580411365e-01,
-					   -2.400758277161838e+00,
-					   -2.549732539343734e+00,
-					   4.374664141464968e+00,
-					   2.938163982698783e+00
-			   };
-
-			   static const double d[] =
-			   {
-				   7.784695709041462e-03,
-					   3.224671290700398e-01,
-					   2.445134137142996e+00,
-					   3.754408661907416e+00
-			   };
-
-			   double q, r;
-
-			   errno = 0;
-
-			   if (p < 0 || p > 1)
-			   {
-				   errno = EDOM;
-				   return 0.0;
-			   }
-			   else if (p == 0)
-			   {
-				   errno = ERANGE;
-				   return -HUGE_VAL /* minus "infinity" */;
-			   }
-			   else if (p == 1)
-			   {
-				   errno = ERANGE;
-				   return HUGE_VAL /* "infinity" */;
-			   }
-			   else if (p < LOW)
-			   {
-				   /* Rational approximation for lower region */
-				   q = sqrt(-2 * log(p));
-				   return (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) /
-					   ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1);
-			   }
-			   else if (p > HIGH)
-			   {
-				   /* Rational approximation for upper region */
-				   q = sqrt(-2 * log(1 - p));
-				   return -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) /
-					   ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1);
-			   }
-			   else
-			   {
-				   /* Rational approximation for central region */
-				   q = p - 0.5;
-				   r = q * q;
-				   return (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q /
-					   (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1);
-			   }
-		   }
-		/*
-		void MyForm::RefreshAxes(void)
+		/* Coefficients in rational approximations. */
+		static const double a[] =
 		{
-			double min, max, delta;
+			-3.969683028665376e+01,
+				2.209460984245205e+02,
+				-2.759285104469687e+02,
+				1.383577518672690e+02,
+				-3.066479806614716e+01,
+				2.506628277459239e+00
+		};
 
-			this->chart1->ChartAreas[0]->RecalculateAxesScale();
-			min = this->chart1->Series["Accurate"]->Points->FindMinByValue(, 0)->YValues[0];
-			max = this->chart1->Series["Accurate"]->Points->FindMaxByValue("Y1", 0)->YValues[0];
-			delta = (max - min) / 3.0;
-			this->chart1->ChartAreas[0]->AxisY->Minimum = min - delta;
-			this->chart1->ChartAreas[0]->AxisY->Maximum = max + delta;
-			this->chart1->ChartAreas[0]->AxisY->TitleAlignment = StringAlignment::Center;
-			this->chart1->ChartAreas[0]->AxisX->TitleAlignment = StringAlignment::Center;
-		}*/
+		static const double b[] =
+		{
+			-5.447609879822406e+01,
+				1.615858368580409e+02,
+				-1.556989798598866e+02,
+				6.680131188771972e+01,
+				-1.328068155288572e+01
+		};
+
+		static const double c[] =
+		{
+			-7.784894002430293e-03,
+				-3.223964580411365e-01,
+				-2.400758277161838e+00,
+				-2.549732539343734e+00,
+				4.374664141464968e+00,
+				2.938163982698783e+00
+		};
+
+		static const double d[] =
+		{
+			7.784695709041462e-03,
+				3.224671290700398e-01,
+				2.445134137142996e+00,
+				3.754408661907416e+00
+		};
+
+		double q, r;
+
+		errno = 0;
+
+		if (p < 0 || p > 1)
+		{
+			errno = EDOM;
+			return 0.0;
+		}
+		else if (p == 0)
+		{
+			errno = ERANGE;
+			return -HUGE_VAL /* minus "infinity" */;
+		}
+		else if (p == 1)
+		{
+			errno = ERANGE;
+			return HUGE_VAL /* "infinity" */;
+		}
+		else if (p < LOW)
+		{
+			/* Rational approximation for lower region */
+			q = sqrt(-2 * log(p));
+			return (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) /
+				((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1);
+		}
+		else if (p > HIGH)
+		{
+			/* Rational approximation for upper region */
+			q = sqrt(-2 * log(1 - p));
+			return -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) /
+				((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1);
+		}
+		else
+		{
+			/* Rational approximation for central region */
+			q = p - 0.5;
+			r = q * q;
+			return (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q /
+				(((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1);
+		}
+	}
 
 	};
 }
